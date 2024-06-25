@@ -2,7 +2,7 @@ package com.moises.curso.springboot.manager.error.exceptions.models;
 
 import java.util.Date;
 
-public class error {
+public class Error {
     private String message;
     private String error;
     private int status;
