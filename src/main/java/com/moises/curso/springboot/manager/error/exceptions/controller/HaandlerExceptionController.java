@@ -6,6 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.servlet.NoHandlerFoundException;
 
 import com.moises.curso.springboot.manager.error.exceptions.models.Error;
 
@@ -21,5 +22,16 @@ public class HaandlerExceptionController {
         error.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
         // return ResponseEntity.internalServerError().body(error);
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR.value()).body(error);
+    }
+
+    @ExceptionHandler(NoHandlerFoundException.class)
+    public ResponseEntity<Error> notFoundException(NoHandlerFoundException ex){
+        Error error = new Error();    
+        error.setDate(new Date());
+        error.setError("Api Rest no encontrado");
+        error.setMessage(ex.getMessage());
+        error.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
+        return ResponseEntity.status(HttpStatus.NOT_FOUND.value()).body(error);
+
     }
 }
