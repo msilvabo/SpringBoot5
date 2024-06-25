@@ -9,7 +9,8 @@ public class AppController {
 
     @GetMapping("/app")
     public String inicialString(){
-        int value  = 100 / 0;
+        // int value  = 100 / 0;
+        int value = Integer.parseInt("1s0");
         System.out.println(value);
         return "ok 200";
     }
