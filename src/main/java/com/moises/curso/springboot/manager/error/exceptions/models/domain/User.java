@@ -5,6 +5,8 @@ public class User {
     private String name;
     private String lastname;
     
+    private Role role;
+
     public User() {
     }
 
@@ -33,4 +35,17 @@ public class User {
         this.lastname = lastname;
     }
 
+    public Role getRole() {
+        return role;
+    }
+
+    public String getRoleName() {
+        return role.getRole();
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
+
+    
 }

@@ -48,4 +48,14 @@ public class HandlerExceptionController {
         error.put("status", HttpStatus.INTERNAL_SERVER_ERROR.value()+"");
         return error;
     }
+    @ExceptionHandler(NullPointerException.class)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    public Map<String, String> nullPointException(Exception ex){
+        Map<String, String> error = new HashMap<>();
+        error.put("date", new Date().toString());
+        error.put("error", "Valor no encontrado!!");
+        error.put("message", ex.getMessage());
+        error.put("status", HttpStatus.INTERNAL_SERVER_ERROR.value()+"");
+        return error;
+    }
 }

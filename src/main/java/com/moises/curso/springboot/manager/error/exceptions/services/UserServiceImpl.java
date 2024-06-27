@@ -34,6 +34,7 @@ public class UserServiceImpl implements UserService {
                 break;
             }
         }
+        System.out.println(user.getLastname());
         return user;
     }
 
