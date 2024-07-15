@@ -1,7 +1,9 @@
 package com.moises.curso.springboot.manager.error.exceptions.services;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
+import com.moises.curso.springboot.manager.error.exceptions.exceptions.UserNotFoundException;
 import org.springframework.stereotype.Service;
 import com.moises.curso.springboot.manager.error.exceptions.models.domain.User;
 
@@ -26,7 +28,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User findById(Long id) {
+    public Optional<User> findById(Long id) {
         User user = null;
         for(User u : users) {
             if(u.getId().equals(id)){
@@ -34,8 +36,11 @@ public class UserServiceImpl implements UserService {
                 break;
             }
         }
-        System.out.println(user.getLastname());
-        return user;
+//        if (user == null){
+//            throw new UserNotFoundException("Usuario not found");
+//        }
+
+        return Optional.ofNullable(user);
     }
 
 }

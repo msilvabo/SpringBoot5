@@ -4,8 +4,10 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.moises.curso.springboot.manager.error.exceptions.exceptions.UserNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotWritableException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -48,14 +50,16 @@ public class HandlerExceptionController {
         error.put("status", HttpStatus.INTERNAL_SERVER_ERROR.value()+"");
         return error;
     }
-    @ExceptionHandler(NullPointerException.class)
-    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    public Map<String, String> nullPointException(Exception ex){
-        Map<String, String> error = new HashMap<>();
-        error.put("date", new Date().toString());
-        error.put("error", "Valor no encontrado!!");
-        error.put("message", ex.getMessage());
-        error.put("status", HttpStatus.INTERNAL_SERVER_ERROR.value()+"");
-        return error;
-    }
+
+     @ExceptionHandler({HttpMessageNotWritableException.class,NullPointerException.class, UserNotFoundException.class})
+     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+     public Map<String, String> userNotFoundException(Exception ex){
+         Map<String, String> error = new HashMap<>();
+         error.put("date", new Date().toString());
+         error.put("error", "el usuario o rol no existe!");
+         error.put("message", ex.getMessage());
+         error.put("status", HttpStatus.INTERNAL_SERVER_ERROR.value()+"");
+         return error;
+     }
+
 }
